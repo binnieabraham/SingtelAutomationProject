@@ -141,6 +141,16 @@ public class Homepage {
         return false;
     }
 
+    public void markAllComplete(){
+        By selectAll = By.xpath("//section/label");
+        webDriverComponents.clickWebElement(selectAll);
+    }
+    public void markAllPending(){
+        By selectAll = By.xpath("//section/label");
+        webDriverComponents.clickWebElement(selectAll);
+        webDriverComponents.clickWebElement(selectAll);
+    }
+
     public WebElement getActiveButton() {
         return activeButton;
     }

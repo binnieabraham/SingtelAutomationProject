@@ -139,7 +139,7 @@ public class StepDefinition {
         }
     }
 
-    @When("^User clicks on the checkbox against (.+)$")
+    @When("^User clicks on the checkbox against (.+) to mark it complete$")
     public void user_clicks_on_the_checkbox_against_item(String pendingitem) {
         homepage.markAnItemComplete(pendingitem);
     }
@@ -157,6 +157,37 @@ public class StepDefinition {
     public void item_gets_marked_as_pending_in_todolist(String itemname) {
         homepage.checkItemPending(itemname);
     }
+    @When("User marks all items as pending")
+    public void user_marks_all_items_as_pending() {
+           homepage.markAllPending();
+    }
+    @Then("All items are marked as pending in todolist")
+    public void all_items_are_marked_as_pending_in_todolist() {
+        List<WebElement> entirelist = homepage.getEntireTodoList();
+        List<WebElement> actuallist = homepage.getPendingTodoList();
+        Assert.assertEquals(actuallist,entirelist);
+    }
+    @Then("None of the items are completed")
+    public void none_of_the_items_are_completed() {
+        List<WebElement> elements=homepage.getCompletedTodoList();
+        Assert.assertEquals(elements.size(),0);
+    }
 
+
+    @When("User marks all items as completed")
+    public void user_marks_all_items_as_completed() {
+        homepage.markAllComplete();
+    }
+    @Then("All items gets marked as completed in todolist")
+    public void all_items_gets_marked_as_completed_in_todolist() {
+        List<WebElement> entirelist = homepage.getEntireTodoList();
+        List<WebElement> actuallist = homepage.getCompletedTodoList();
+        Assert.assertEquals(actuallist,entirelist);
+    }
+    @Then("None of the items are pending")
+    public void none_of_the_items_are_pending() {
+        List<WebElement> elements = homepage.getPendingTodoList();
+        Assert.assertEquals(elements.size(),0);
+    }
 
 }
