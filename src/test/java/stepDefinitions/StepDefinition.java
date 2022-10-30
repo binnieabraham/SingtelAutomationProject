@@ -4,6 +4,7 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import pageobjects.Homepage;
@@ -136,6 +137,26 @@ public class StepDefinition {
             for (Map<String, String> deleteItemName : rows) {
                 Assert.assertFalse(homepage.getPresenceOfItem(deleteItemName.get("item")));
         }
-
     }
+
+    @When("^User clicks on the checkbox against (.+)$")
+    public void user_clicks_on_the_checkbox_against_item(String pendingitem) {
+        homepage.markAnItemComplete(pendingitem);
+    }
+    @Then("^(.+) gets marked completed in todolist$")
+    public void item_gets_marked_completed_in_todolist(String itemname) {
+        homepage.checkItemComplete(itemname);
+    }
+
+    @When("^User again clicks on the checkbox of a completed item (.+)$")
+    public void User_again_clicks_on_the_checkbox_of_a_completed_item(String completeditem) {
+        homepage.markAnItemPending(completeditem);
+    }
+
+    @Then("^(.+) gets marked as pending in todolist$")
+    public void item_gets_marked_as_pending_in_todolist(String itemname) {
+        homepage.checkItemPending(itemname);
+    }
+
+
 }

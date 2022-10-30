@@ -1,9 +1,11 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import pageobjects.Homepage;
 import static common.WebDriverVariable.driver;
-
+import common.WebDriverComponents;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class Basictest  {
 
     public static void main( String args[])
     {
+        WebDriverComponents webDriverComponents = new WebDriverComponents();
         Homepage homepage;
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -22,8 +25,17 @@ public class Basictest  {
         }
         List<String> listOfTasks = Arrays.asList( "make chicken","shopping");
 
+        String text = "shopping";
+        List<WebElement> list =  homepage.getPendingTodoList();
+        for(WebElement elemenet : list){
+            if(elemenet.getText().equalsIgnoreCase(text)){
+                By checkBtn = By.xpath("//div//label[contains(.,'" + text + "')]//preceding-sibling::input");
 
-        Actions action = new Actions(driver);
+                webDriverComponents.clickWebElement(checkBtn);
+            }
+        }
+
+        //Actions action = new Actions(driver);
 
         /*WebElement e =driver.findElement(By.xpath("//ul/li/div/label[text()=\"shopping\"]"));
         action.doubleClick(e).keyDown(Keys.COMMAND).sendKeys("A").keyUp(Keys.COMMAND)

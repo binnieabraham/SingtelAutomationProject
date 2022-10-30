@@ -55,7 +55,7 @@ Feature: Adding an item in todo List
       |  item             |
       | shopping          |
 
-  @Regression
+  @Sanity
   Scenario Outline: Deleting multiple items from todo list
     Given User is on todo list page
     When User adds few items
@@ -69,6 +69,29 @@ Feature: Adding an item in todo List
       | shopping          |
       | go to church      |
 
+  @Regression
+  Scenario Outline: Marking a single item as completed in todo list
+    Given User is on todo list page
+    When User adds few items
+      | make dinner | buy frying pan | shopping | go to church |
+    And User clicks on the checkbox against <item>
+    Then <item> gets marked completed in todolist
 
+    Examples:
+      |  item             |
+      | shopping          |
+
+  @Sanity
+  Scenario Outline: Marking a single item as pending in todo list
+    Given User is on todo list page
+    When User adds few items
+      | make dinner | buy frying pan | shopping | go to church |
+    And User clicks on the checkbox against <item>
+    And User again clicks on the checkbox of a completed item <item>
+    Then <item> gets marked as pending in todolist
+
+    Examples:
+      |  item             |
+      | go to church      |
 
 

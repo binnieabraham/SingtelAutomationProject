@@ -97,9 +97,43 @@ public class Homepage {
             }
         }
     }
+    public void markAnItemComplete(String itemname){
+        List<WebElement> list =  getPendingTodoList();
+        for(WebElement elemenet : list){
+            if(elemenet.getText().equalsIgnoreCase(itemname)){
+                By checkBtn = By.xpath("//div//label[contains(.,'" + itemname + "')]//preceding-sibling::input");
+                webDriverComponents.clickWebElement(checkBtn);
+            }
+        }
+    }
+    public void markAnItemPending(String itemname){
+        List<WebElement> list =  getCompletedTodoList();
+        for(WebElement elemenet : list){
+            if(elemenet.getText().equalsIgnoreCase(itemname)){
+                By checkBtn = By.xpath("//div//label[contains(.,'" + itemname + "')]//preceding-sibling::input");
+                webDriverComponents.clickWebElement(checkBtn);
+            }
+        }
+    }
 
     public boolean getPresenceOfItem(String itemname) {
         for (WebElement element : entireTodoList) {
+            if (element.getText().equalsIgnoreCase(itemname)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkItemComplete(String itemname) {
+        for (WebElement element : completedTodoList) {
+            if (element.getText().equalsIgnoreCase(itemname)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkItemPending(String itemname) {
+        for (WebElement element : pendingTodoList) {
             if (element.getText().equalsIgnoreCase(itemname)) {
                 return true;
             }
