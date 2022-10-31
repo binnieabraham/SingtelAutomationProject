@@ -190,4 +190,15 @@ public class StepDefinition {
         Assert.assertEquals(elements.size(),0);
     }
 
+    @When("Clicks on Clear Completed button")
+    public void Clicks_on_Clear_Completed_button() {
+        homepage.clearCompleted();
+    }
+    @Then("List of completed items should be empty")
+    public void List_of_completed_items_should_be_empty() {
+        List<WebElement> completedList= homepage.getCompletedTodoList();
+        Assert.assertEquals(completedList.size(),0);
+    }
+
+
 }

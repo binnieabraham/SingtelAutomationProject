@@ -64,7 +64,8 @@ public class Homepage {
 
     public void markItemComplete(String item) {
         for (WebElement elem : getPendingTodoList()) {
-            WebElement element = elem.findElement(By.cssSelector("input[type=\"checkbox\"]"));
+            By checkbox = By.cssSelector("input[type=\"checkbox\"]");
+            WebElement element = elem.findElement(checkbox);
             if (elem.getText().equalsIgnoreCase(item)) {
                 element.click();
             }
@@ -83,9 +84,7 @@ public class Homepage {
     }
 
     public void deleteItem(String deleteitemname) throws Exception {
-
         List<WebElement> elements = getEntireTodoList();
-
         for (int i = 1; i <= elements.size(); i++) {
             By genericTodoItem = By.xpath("(//ul[@class='todo-list']//li//label)[" + i + "]");
             String text = webDriverComponents.getText(genericTodoItem);
@@ -134,9 +133,7 @@ public class Homepage {
     }
     public boolean checkItemPending(String itemname) {
         for (WebElement element : pendingTodoList) {
-            if (element.getText().equalsIgnoreCase(itemname)) {
-                return true;
-            }
+            if (element.getText().equalsIgnoreCase(itemname)) {   return true;       }
         }
         return false;
     }
@@ -150,20 +147,26 @@ public class Homepage {
         webDriverComponents.clickWebElement(selectAll);
         webDriverComponents.clickWebElement(selectAll);
     }
+    public void clearCompleted(){
+        clearCompletedButton.click();
+    }
 
     public WebElement getActiveButton() {
         return activeButton;
     }
 
     public List<WebElement> getPendingTodoList() {
+        activeButton.click();
         return pendingTodoList;
     }
 
     public List<WebElement> getCompletedTodoList() {
+        completedButton.click();
         return completedTodoList;
     }
 
     public List<WebElement> getEntireTodoList() {
+        allButton.click();
         return entireTodoList;
     }
 

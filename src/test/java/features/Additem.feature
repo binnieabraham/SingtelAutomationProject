@@ -31,7 +31,7 @@ Feature: Adding an item in todo List
     And User clicks on active tab
     Then the number of items matches the displayed number of items
 
-  @Regression
+  @Sanity
   Scenario: Comparing the display of number of items left with pending items in todo list
     Given User is on todo list page
     When User adds few items
@@ -55,7 +55,7 @@ Feature: Adding an item in todo List
       |  item             |
       | shopping          |
 
-  @Regression
+  @Sanity
   Scenario: Deleting multiple items from todo list
     Given User is on todo list page
     When User adds few items
@@ -122,3 +122,14 @@ Feature: Adding an item in todo List
     Examples:
       |  item            |
       | make dinner      |
+
+
+  @Sanity
+  Scenario: Adding few items then marking few items completed and clearing completed list
+    Given User is on todo list page
+    When User adds few items
+      | make dinner | buy frying pan | shopping | go to church |
+    And Marks following items completed
+      | make dinner | shopping |
+    And Clicks on Clear Completed button
+    Then List of completed items should be empty
